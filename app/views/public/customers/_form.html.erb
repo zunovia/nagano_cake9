@@ -1,0 +1,87 @@
+      <%= form_with model: [:public, customer] do |f| %>
+
+        <div class="row">
+          <div class="col-3">
+            <%= f.label  "名前" %>
+          </div>
+          <div class="col-1 text-right">
+            <%= f.label  "(姓)" %>
+          </div>
+          <div class="col-3">
+            <%= f.text_field :last_name,  autocomplete: "last_name",placeholder: "令和" %>
+          </div>
+          <div class="col-1 text-right">
+            <%= f.label  "(名)" %>
+          </div>
+          <div class="col-3">
+            <%= f.text_field :first_name,  autocomplete: "first_name",placeholder: "道子" %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            <%= f.label  "フリガナ" %>
+          </div>
+          <div class="col-1 text-right">
+            <%= f.label  "(セイ)" %>
+          </div>
+          <div class="col-3">
+            <%= f.text_field :last_name_kana,  autocomplete: "last_name_kana",placeholder: "レイワ" %>
+          </div>
+          <div class="col-1 text-right">
+            <%= f.label  "(メイ)" %>
+          </div>
+          <div class="col-3">
+            <%= f.text_field :first_name_kana,  autocomplete: "last_name_kana",placeholder: "ミチコ" %>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-3">
+            <%= f.label :email, "メールアドレス" %>
+          </div>
+          <div class="col-1"></div>
+          <div class="col-4">
+            <%= f.email_field :email, autocomplete: "email",placeholder: "sample@example.com" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-3">
+            <%= f.label :zip_code, "郵便番号(ハイフンなし)" %>
+          </div>
+          <div class="col-1"></div>
+          <div class="col-4">
+            <%= f.text_field :zip_code, autocomplete: "post_code",placeholder: "0000000" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-3">
+            <%= f.label :address, "住所" %>
+          </div>
+          <div class="col-1"></div>
+          <div class="col-8">
+            <%= f.text_field :address, autocomplete: "address",placeholder: "東京都渋谷区代々木神園町0-0", class:"col-10" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-3">
+            <%= f.label :phone_number, "電話番号(ハイフンなし)" %>
+          </div>
+          <div class="col-1"></div>
+          <div class="col-4">
+            <%= f.text_field :phone_number, autocomplete: "phone_number",placeholder: "00000000000" %>
+          </div>
+        </div>
+        <div class="row justify-content-around">
+          <div class="text-center mt-3 col-3">
+            <%= f.submit class:"btn btn-success px-5" %>
+          </div>
+          <div class="col-3 mt-3">
+            <%= link_to "退会する", public_customers_check_path, class:"btn btn-danger" %>
+          </div>
+        </div>
+
+      <% end %>

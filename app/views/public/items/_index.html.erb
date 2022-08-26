@@ -1,0 +1,11 @@
+      <div class="grid">
+        <% items.each do |item| %>
+        <%= link_to public_item_path(item) do %>
+        <div>
+          <%= image_tag item.get_image(100,100) %><br>
+          <%= item.name %><br>
+          <%= item.tax_include_price.to_s(:delimited) %>円
+        </div>
+        <% end %>
+        <% end %>
+      </div>

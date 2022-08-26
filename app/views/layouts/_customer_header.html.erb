@@ -1,0 +1,64 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-white bg-light">
+    <div class="container">
+
+  <ul class="nav border-bottom">
+    <li class="nav-item pl-2">
+       <%= link_to image_tag("naganocake_icon.png",size: '100x90' ), "/" %>
+    </li>
+
+    <% if customer_signed_in? %>
+
+    <p class="m-5">ようこそ、<%= current_customer.first_name %>さん！</p>
+
+    <ul class="nav ml-auto">
+
+      <form class="form-inline mr-5">
+       <input type="search" class="form-control mr-sm-2" placeholder="検索..." aria-label="検索...">
+       <button type="submit" class="btn btn-outline-secondary my-2 my-sm-0">検索</button>
+      </form>
+
+      <li class="nav-item mx-2 d-flex align-items-center">
+        <%= link_to "マイページ", public_customers_path(current_customer), class: "nav-link btn btn-outline-secondary" %>
+      </li>
+      <li class="nav-item mx-2 d-flex align-items-center">
+        <%= link_to "商品一覧", public_items_path, class: "nav-link btn btn-outline-secondary" %>
+      </li>
+      <li class="nav-item mx-2 d-flex align-items-center">
+        <%= link_to "カート", public_cart_items_path, class: "nav-link btn btn-outline-secondary" %>
+      </li>
+      <li class="nav-item mx-2 d-flex align-items-center">
+        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: "nav-link btn btn-outline-secondary" %>
+      </li>
+    </ul>
+
+    <% else %>
+
+    <ul class="nav ml-auto">
+
+      <form class="form-inline mr-5">
+       <input type="search" class="form-control mr-sm-2" placeholder="検索..." aria-label="検索...">
+       <button type="submit" class="btn btn-outline-secondary my-2 my-sm-0">検索</button>
+      </form>
+
+      <li class="nav-item mx-2 d-flex align-items-center">
+        <%= link_to  "About", public_homes_about_path, class: "nav-link btn btn-outline-secondary" %>
+      </li>
+      <li class="nav-item mx-2 d-flex align-items-center">
+        <%= link_to "商品一覧", public_items_path, class: "nav-link btn btn-outline-secondary" %>
+      </li>
+      <li class="nav-item mx-2 d-flex align-items-center">
+        <%= link_to "新規登録", new_customer_registration_path, class: "nav-link btn btn-outline-secondary" %>
+      </li>
+      <li class="nav-item mx-2 d-flex align-items-center">
+        <%= link_to "ログイン", new_customer_session_path, class: "nav-link btn btn-outline-secondary" %>
+      </li>
+
+    </ul>
+
+    <% end %>
+
+  </ul>
+  </div>
+  </nav>
+</header>

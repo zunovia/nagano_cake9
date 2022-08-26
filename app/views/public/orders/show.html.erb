@@ -1,0 +1,34 @@
+<div class='container'>
+    <div class='row'>
+        <div class='col-xs-9'>
+            <div>
+            <h4>注文情報</h4>
+                <p>注文日</p>
+                    <%= @order.created_at.strftime('%Y-%m-%d %H:%M:%S') %>
+                <p>配送先</p>
+                    <%= @order.ordered_postal_code %>
+                    <%= @order.ordered_address %>
+                    <%= @order.receriver_name %>
+                <p>支払方法</p>
+                <p>ステータス</p>
+                    <%= @order.order_status %>
+            <h4>請求情報</h4>
+                <p>商品合計</p>
+                    <%= @total_price %>
+                <p>配送料</p>
+                <p>800</p>
+                <p>ご請求額</p>
+                    <%= @order.billing_amount %>
+            </div>
+            <div>
+            <h4>注文内容</h4>
+                <% @order_item.each do |order_item| %>
+                    <p>商品<%= order_item.item.name %></p>
+                    <p>単価（税込）<%= order_item.ordered_price %>円</p>
+                    <p>個数<%= order_item.item_count %></p>
+                    <p>小計<%= (order_item.ordered_price*order_item.item_count) %>円</p>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

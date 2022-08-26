@@ -1,0 +1,40 @@
+<div class='container'>
+    <div class='row'>
+        <div class='col-xs-9'>
+            <div>
+            <p>商品名</p>
+            <p>単価(税込)</p>
+            <p>数量</p>
+            <p>小計</p>
+            <% @cart_items.each do |cart_item| %>
+                <%= image_tag cart_item.item.image, size: "50x50", fallback: 'no_image_jpg' %><%= cart_item.item.name %>
+                <%= (cart_item.item.price*1.1).round.to_i %>
+                <%= ((cart_item.item.price*1.1)*cart_item.item_count).round.to_i %>
+            <% end %>
+            <p>送料</p>
+            <p>800</p>
+            <p>商品合計</p>
+            <%= @total_price %>
+                <p>請求金額</p>
+            <%= @order.billing_amount %>
+            <p>支払方法</p>
+            <%= @order.payment_method %>
+            <p>お届け先</p>
+                <%= @order.ordered_postal_code %>
+                <%= @order.ordered_address %>
+                <%= @order.receriver_name %>
+            </div>
+            <div>
+                <!-- 情報 -->
+            <%= form_with model: @order, url: public_orders_path do |f| %>
+            <%= f.hidden_field :ordered_postal_code, value: @order.ordered_postal_code %>
+            <%= f.hidden_field :ordered_address, value: @order.ordered_address %>
+            <%= f.hidden_field :receriver_name, value: @order.receriver_name %>
+            <%= f.hidden_field :payment_method, value: @order.payment_method %>
+
+                <%= f.submit "注文を確定する" %>
+            <% end %>
+            </div>
+        </div>
+    </div>
+</div>

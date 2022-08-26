@@ -1,0 +1,8 @@
+<div class="border border-dark pb-5">
+  <p class="border-bottom border-dark text-center">ジャンル検索</p>
+<% genres.each do |genre| %>
+  <div class="pl-3 pb-2">
+    <%= link_to genre.name, public_items_search_path(keyword: genre.name),class:"text-body" %>
+  </div>
+<% end %>
+</div>

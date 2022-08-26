@@ -1,0 +1,33 @@
+<div class='container'>
+    <div class='row'>
+        <div class='col-lg-12'>
+            <table class='table table-bordered'>
+            <thead>
+                <tr>
+                    <th>注文日</th>
+                    <th>配送先</th>
+                    <th>注文商品</th>
+                    <th>支払金額</th>
+                    <th>ステータス</th>
+                    <th>注文詳細</th>
+                </tr>
+            </thead>
+            <% @orders.each do |order| %>
+            <tbody>
+                <tr>
+                    <td><%= order.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+                    <td><%= order.ordered_postal_code %><%= order.ordered_address %><%= order.receriver_name %></td>
+
+                    <td><% order.order_items.each do |order_item| %><%= order_item.item.name %><% end %></td>
+
+
+                    <td><% order.order_items.each do |order_item| %><%= order_item.item.price %><% end %></td>
+
+                    <td><%= order.order_status %></td>
+                    <td><%= link_to '表示する', public_order_path(order.id), class: 'btn btn-success'  %></td>
+                </tr>
+            </tbody>
+            <% end %>
+        </div>
+    </div>
+</div>

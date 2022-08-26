@@ -1,0 +1,45 @@
+<%= stylesheet_link_tag "application", :media => "all" %>
+<div class="container">
+  <div class="top m-5">
+    <h3 class="bg-light bg-opacity-50" style="display:inline;">ショッピングカート</h3>
+    <div class="box-delete"><%= link_to "カートを空にする", public_cart_items_destroy_all_path, method: :delete, class: "btn btn-danger" %></div>
+  </div>
+  <div class="row">
+      <table class="table table-bordered">
+        <tr>
+          <th colspan="3" height="50" class="table-light">商品名</th>
+          <th class="table-light">単価(税込)</th>
+          <th class="table-light">数量</th>
+          <th class="table-light">小計</th>
+          <th class="table-light"></th>
+        </tr>
+        <% @cart.each do |item| %>
+        <tr>
+          <td colspan="3"><%= image_tag item.item.get_image(50,50) %><%= item.item.name %></td>
+          <td><%= item.tax_include_price %></td>
+            <td>
+            <%= form_with model: [:public, item], url: public_cart_item_path(item.id), method: :patch do |f| %>
+              <%= f.hidden_field :item_id, :value  => item.id %>
+              <%= f.select :amount ,*[1..10] %>
+              <%= f.submit "変更", class:"btn btn-success w-auto" %>
+            <%end%>
+            </td>
+          <td><%= item.subtotal %></td>
+          <td><%= link_to "削除する",public_cart_item_path(item), method: :delete, class: "btn btn-danger" %></td>
+          <% @total += item.subtotal %>
+          <% end %>
+        </tr>
+      </table>
+
+    <span class="pt-5">
+      <%= link_to "買い物を続ける",root_path, class: "btn btn-primary btn-lg" %>
+      <table class="total" align="right">
+        <th height="50" class="table-light">合計金額</th>
+        <td><%=@total.to_s(:delimited) %></td>
+      </table>
+    </span>
+    <div class="col text-center mt-5">
+      <%= link_to "情報入力に進む",new_public_order_path, class: "btn btn-success btn-lg" %>
+    </div>
+  </div>
+</div>
