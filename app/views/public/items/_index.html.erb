@@ -1,10 +1,10 @@
       <div class="grid">
-        <% items.each do |item| %>
-        <%= link_to public_item_path(item) do %>
+        <% item_all.each do |item_all| %>
+        <%= link_to public_item_path(item_all) do %>
         <div>
-          <%= image_tag item.get_image(100,100) %><br>
-          <%= item.name %><br>
-          <%= item.tax_include_price.to_s(:delimited) %>円
+          <%= image_tag item_all.get_image(100,100) %><br>
+          <%= item_all.name %><br>
+          <%= item_all.tax_include_price.to_s(:delimited) %>円
         </div>
         <% end %>
         <% end %>

@@ -21,11 +21,11 @@
         </div>
         <div class="form-group">
           <span>税抜価格</span>
-          <%= f.number_field :tax_free_price, class: "form-control" %>円
+          <%= f.number_field :price, class: "form-control" %>円
         </div>
         <div class="form-group">
           <span>販売ステータス</span>
-          <%= f.radio_button :sales_status, 0, checked: true %>販売中 <%= f.radio_button :sales_status, 1 %>販売停止中
+          <%= f.radio_button :is_active, 0, checked: true %>販売中 <%= f.radio_button :is_active, 1 %>販売停止中
         </div>
         <div class="form-group">
           <%= f.submit "変更を保存", class: "btn btn-success" %>

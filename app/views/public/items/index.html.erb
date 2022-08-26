@@ -11,9 +11,9 @@
         <%= @genre.name %>一覧
       <% end %>
     </h1>
-    (全<%#=@sale_items.count%>件)</strong>
-    <%= render "public/items/index", items: @items %>
-     <div class="mt-5"><%= paginate @items %></div>
+    (全<%=@items_count.count%>件)</strong>
+    <%= render "index", item_all: @item_all %>
+     <div class="mt-5"><%#= paginate @items %></div>
     </div>
   </div>
 </div>

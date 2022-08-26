@@ -1,46 +1,49 @@
 class Public::CartItemsController < ApplicationController
-  def index
-    @cart_items=current_customer.cart_items.all
-    @total_price = 0
-  end
+before_action :authenticate_customer!
 
-  def create
-    @cart_item = CartItem.new(cart_item_params)
-    current_cart_items = current_customer.cart_items.find_by(item_id: params[:cart_item][:item_id])
-    if current_cart_items.present?
-    cart_item = CartItem.find_by(item_id: @cart_item.item_id, customer_id: current_customer.id)
-    cart_item.update!(item_count: cart_item.item_count + @cart_item.item_count)
-    redirect_to public_cart_items_path
-    else
-    @cart_item.customer_id = current_customer.id
-    @cart_item.save!
-    redirect_to public_cart_items_path
-    end
+  def index
   end
 
   def update
-    @cart_item=CartItem.find(params[:id])
+    @cart_item = CartItem.find(params[:id])
     @cart_item.update(cart_item_params)
-    redirect_to public_cart_items_path
   end
 
   def destroy
-    @cart_item=CartItem.find(params[:id])
+    @cart_item = CartItem.find(params[:id])
     @cart_item.destroy
-    redirect_to public_cart_items_path
   end
 
   def destroy_all
-    @cart_items=current_customer.cart_items
-    @cart_items.destroy_all
-    redirect_to public_cart_items_path
+    current_customer.cart_items.destroy_all
   end
-end
 
+  def create
+    # カート内にある同じ商品をすべて取得
+    now_cart = current_customer.cart_items.where(item_id: params[:cart_item][:item_id])
+    cart_item = current_customer.cart_items.new(cart_item_params)
+    if now_cart.present?
+      # 存在した時は購入個数を足して一つにまとめる
+      now_cart.each do |item|
+        cart_item.amount += item.amount
+        item.destroy
+      end
+    end
 
+    if cart_item.save
+      redirect_to public_cart_items_path, notice: "カートに商品を追加しました"
+    else
+      @item = Item.find(params[:cart_item][:item_id])
+      @cart_item = CartItem.new
+      @genres = Genre.all
+      flash[:danger] = "商品の追加に失敗しました"
+      render 'public/items/show'
+    end
+  end
 
   private
 
   def cart_item_params
-  params.require(:cart_item).permit(:item_id, :item_count, :customer_id)
+    params.require(:cart_item).permit(:item_id, :amount)
   end
+end

@@ -3,6 +3,7 @@ class Item < ApplicationRecord
   has_one_attached :image
   has_many :cart_items , dependent: :destroy
   has_many :order_items , dependent: :destroy
+  enum sale_status: { 販売中: 0, 販売停止中: 1 }
 
 
   def get_image(width, height)
@@ -14,7 +15,11 @@ class Item < ApplicationRecord
   end
 
   def tax_include_price
-    (tax_free_price*1.1).round(0)
+    (price*1.1).round(0)
+  end
+
+  def with_tax_price
+    (price * 1.1).floor
   end
 
 
