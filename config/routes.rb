@@ -27,7 +27,7 @@ root to: "public/homes#top"
   end
 
   namespace :public do
-    resources :shipping_addresses,only:[:index, :create, :edit, :update,:destroy]
+    resources :addresses,only:[:index, :create, :edit, :update,:destroy]
     get 'orders/finish'
     post 'orders/check'
     resources :orders,only:[:new, :index, :create, :show]

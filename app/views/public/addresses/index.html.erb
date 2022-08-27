@@ -1,24 +1,27 @@
-<h2>配送先登録/一覧</h2>
-<%= form_with model: @address,url: public_addresses_path do |f| %>
+<div class="container">
+  <div class="row">
+    <div class="d-flex justify-content-between col-8 align-items-center">
+<br>
+<%= form_with model: [:public, @address],url: public_addresses_path do |f| %><br>
+    <h2>配送先登録/一覧</h2><br>
     <h4>郵便番号（ハイフンなし）</h4>
-    <%= f.text_field :ordered_postal_code %>
+    <%= f.text_field :zip_code ,autocomplete: "zip_code", placeholder: "0000000", class:"col-12"  %>
     <h4>住所</h4>
-    <%= f.text_field :ordered_address %>
+    <%= f.text_field :address ,autocomplete: "address", placeholder: "愛知県名古屋市中区1-2-3", class:"col-12"  %>
     <h4>宛名</h4>
-    <%= f.text_field :receriver_name %>
+    <%= f.text_field :name ,autocomplete: "name", placeholder: "山田太郎",class:"col-12"  %>
 
-    <%= link_to public_addresses_path,method: :post do %>
-    <%= f.submit "新規登録" %>
+    <%= link_to public_addresses_path,method: :post do %><br>
+    <%#= f.hidden_field :customer_id, :value => current_customer.id %>
+    <%= f.submit "新規登録", class: 'btn btn-outline-success btn-block' %>
     <% end %>
 <% end %>
 
-<p>郵便番号</p>
-<p>住所</p>
-<p>宛名</p>
+
 <% @addresses.each do |address| %>
-    <%= address.ordered_postal_code %>
-    <%= address.ordered_address %>
-    <%= address.receriver_name %>
+    <%= address.zip_code %>
+    <%= address.address %>
+    <%= address.name %>
 
     <%= link_to edit_public_address(address.id) do %>
         <i class = "btn btn-sm btn-success">編集する</i>
@@ -27,3 +30,7 @@
         <i class = "btn btn-sm btn-danger">削除する</i>
     <% end %>
 <% end %>
+
+        </div>
+    </div>
+</div>
